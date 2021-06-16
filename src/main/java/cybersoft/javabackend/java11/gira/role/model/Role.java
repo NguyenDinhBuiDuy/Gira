@@ -23,7 +23,7 @@ public class Role extends AbstractEntity{
 	
 	@NotBlank(message = "role name can't be blank")
 	@Length ( min = 4 , max = 50, message = "role name length is between {0} and {1}.")
-	private String roleName;
+	private String rolename;
 	
 	@NotBlank(message = "role description can't be blank")
 	@Length ( min = 4 , max = 255, message = "role description length is between {0} and {1}.")
@@ -38,7 +38,7 @@ public class Role extends AbstractEntity{
 	private Set<RoleGroup> groups = new HashSet<>();
 	
 	public Role roleName(String roleName) {
-		this.roleName = roleName;
+		this.rolename = roleName;
 		return this;
 	}
 	
@@ -50,7 +50,7 @@ public class Role extends AbstractEntity{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("ROLE: %d %s %s", id, roleName, description);
+		return String.format("ROLE: %d %s %s", id, rolename, description);
 	}
 
 	public long getId() {
@@ -59,11 +59,11 @@ public class Role extends AbstractEntity{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getRoleName() {
-		return roleName;
+	public String getRolename() {
+		return rolename;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setRolename(String roleName) {
+		this.rolename = roleName;
 	}
 	public String getDescription() {
 		return description;

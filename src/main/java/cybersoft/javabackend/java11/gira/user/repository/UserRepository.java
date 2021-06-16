@@ -8,6 +8,7 @@ import cybersoft.javabackend.java11.gira.user.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	int countByUserName(String username);
+	int countByUsername(String username);
 
 }
+

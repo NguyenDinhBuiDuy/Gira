@@ -15,11 +15,12 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserna
 
 	@Override
 	public boolean isValid(String username, ConstraintValidatorContext context) {
-		boolean isTakenUserName = _service.isTakenUserName(username);
+		boolean isTakenUserName = _service.isTakenUsername(username);
 		if (!isTakenUserName)
 			return true;
 
-		context.buildConstraintViolationWithTemplate(username).addConstraintViolation()
+		context.buildConstraintViolationWithTemplate(username)
+				.addConstraintViolation()
 				.disableDefaultConstraintViolation();
 		return false;
 	}

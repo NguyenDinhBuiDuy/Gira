@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public List<Role> findByRoleName(String roleName) {
 		// TODO: bài tập
-		return _repository.findByRoleName(roleName);
+		return _repository.findByRolename(roleName);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
 	
 	private void mapRoleToDto(RoleWithAccountsDTO dto, Role role) {
 		dto.setId(role.getId());
-		dto.setRoleName(role.getRoleName());
+		dto.setRoleName(role.getRolename());
 		dto.setDescription(role.getDescription());
 		dto.setAccounts(role.getAccounts());
 	}
@@ -74,7 +74,7 @@ public class RoleServiceImpl implements RoleService {
 	public Role updateRoleInfo(CreateRoleDTO dto, Long roleId) {
 		Role role = _repository.getOne(roleId); // getOne: khi lay du lieu no se lay o context ma khong can sinh sql nhu findById de lay du lieu tu database
 		role.id(roleId)
-				.roleName(dto.getRoleName())
+				.roleName(dto.getRolename())
 				.description(dto.getDescription());
 		
 		return _repository.save(role);
@@ -91,8 +91,12 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role save(@Valid CreateRoleDTO dto) {
 		Role role = new Role();
-		role.roleName(dto.getRoleName()).description(dto.getDescription());
+		role.roleName(dto.getRolename()).description(dto.getDescription());
 		return _repository.save(role);
+	}
+	@Override
+	public boolean isTakenRolename(String rolename) {
+		return _repository.countByRolename(rolename) >= 1;
 	}
 
 	
