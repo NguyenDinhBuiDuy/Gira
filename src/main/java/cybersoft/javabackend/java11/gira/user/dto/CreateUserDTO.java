@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import cybersoft.javabackend.java11.gira.user.util.UserStatus;
@@ -36,7 +37,7 @@ public class CreateUserDTO {
 	
 	private String avatar;
 	
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
 

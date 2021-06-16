@@ -10,6 +10,6 @@ public interface UserService extends GenericService<User, Long> {
 
 	User save(CreateUserDTO dto);
 
-	boolean isTakenUserName(String username);
+	boolean isTakenUsername(String username);
 
 }

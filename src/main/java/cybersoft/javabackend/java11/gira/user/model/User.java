@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
@@ -23,7 +24,6 @@ public class User extends AbstractEntity {
 	@NotBlank(message = "{user.username.notblank}")
 	@Size(min = 3, max = 50, message = "{user.username.size}")
 	@Column(unique = true)
-	@UniqueUsername
 	private String username;
 
 	@NotBlank
@@ -41,7 +41,7 @@ public class User extends AbstractEntity {
 
 	private String avatar;
 
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
 

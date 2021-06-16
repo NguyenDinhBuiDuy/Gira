@@ -18,15 +18,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 		user.username(dto.getUsername())
 		.password(dto.getPassword())
 		.email(dto.getEmail())
-		.fullname(dto.getFullname());
+		.displayname(dto.getDisplayname())
+		.fullname(dto.getFullname())
+		.status(dto.getStatus());
+		
 		return _repository.save(user);
 	}
 
 	@Override
-	public boolean isTakenUserName(String username) {
-		if( _repository.countByUserName(username) >=1)
-			return true;
-		return false;
+	public boolean isTakenUsername(String username) {
+		return _repository.countByUsername(username) >= 1;
 	}
 
 }
