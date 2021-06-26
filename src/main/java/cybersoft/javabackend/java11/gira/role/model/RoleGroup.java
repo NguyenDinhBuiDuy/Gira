@@ -15,7 +15,12 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.validator.constraints.Length;
 
 import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
+import cybersoft.javabackend.java11.gira.user.model.User;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table (name = "gira_role_group")
 public class RoleGroup extends AbstractEntity {
@@ -34,6 +39,11 @@ public class RoleGroup extends AbstractEntity {
 	inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private Set<Role> roles = new HashSet<>(); // trong một mối quan hệ many to many thì luôn dùng set list sẽ ảnh hưởng đến performance
 	
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@JoinTable(name = "gira_user_role_group",
+				joinColumns = @JoinColumn(name = "role_group_id"),
+				inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Set<User> users = new HashSet<>();
 	/*
 	 * helper methods: để đảm bảo dữ liệu luôn được thống nhất giữa các đối tượng 
 	 * vd muốn thêm một role mới,
