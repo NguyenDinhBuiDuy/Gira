@@ -20,7 +20,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements U
 	public User save(CreateUserDTO dto) {
 		User user = new User();
 		user.username(dto.getUsername())
-		.password(passwordEncoder.encode( dto.getPassword()))
+		.password(passwordEncoder.encode(dto.getPassword()))
 		.email(dto.getEmail())
 		.displayname(dto.getDisplayname())
 		.fullname(dto.getFullname())
