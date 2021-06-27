@@ -1,6 +1,5 @@
 package cybersoft.javabackend.java11.gira.config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,12 +36,12 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder()
 			.title("Gira Application")
 			.description("API for education purpose.")
-			.contact(new Contact("Nguyen Dinh Bui Duy", "thienduybmt25021997@gmail.com", "Bui Duy dev"))
+			.contact(new Contact("Nguyen Dinh Bui Duy", "thienduybmt25021997@gmail.com", "BuiDuy.dev"))
 			.license("MIT2")
 			.build();
 	}
 	private ApiKey apiKey() {
-		return new ApiKey ("Jwt", "Authorization", "header");
+		return new ApiKey ("JWT", "Authorization", "header");
 	}
 	
 	private SecurityContext securityContext() {
@@ -55,6 +54,6 @@ public class SwaggerConfig {
 		AuthorizationScope authorizationScope = new AuthorizationScope("global", "All application can acess");
 		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
 		authorizationScopes[0] = authorizationScope;
-		return Arrays.asList(new SecurityReference("JWR", authorizationScopes));
+		return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
 	}
 }
