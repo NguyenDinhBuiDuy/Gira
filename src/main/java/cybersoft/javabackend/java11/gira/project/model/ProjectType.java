@@ -2,8 +2,9 @@ package cybersoft.javabackend.java11.gira.project.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -24,14 +25,20 @@ import lombok.ToString;
 @ToString
 public class ProjectType extends AbstractEntity{
 	
-	@NotBlank(message = "Project type name can't be blank")
-	@Length ( min = 4 , max = 50, message = "Project type name length is between {0} and {1}.")
+	@NotBlank(message = "{project-type.name.notblank}")
+	@Length ( min = 4 , max = 50, message = "{project-type.name.size}")
+	@Column (unique = true)
 	private String name;
+	
+	@NotBlank(message = "{project-type.code.notblank}")
+	@Length ( min = 4 , max = 50, message = "{project-type.code.size}")
+	@Column (unique = true)
+	private String code;
 	
 	@NotBlank
 	private String description;
 	
-	@OneToMany (mappedBy = "project", fetch = FetchType.LAZY)
+	@OneToMany (mappedBy = "project", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Project> projects;
 	
