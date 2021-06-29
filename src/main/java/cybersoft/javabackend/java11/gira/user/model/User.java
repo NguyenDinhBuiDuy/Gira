@@ -3,12 +3,14 @@ package cybersoft.javabackend.java11.gira.user.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +20,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
+import cybersoft.javabackend.java11.gira.project.model.Project;
 import cybersoft.javabackend.java11.gira.role.model.RoleGroup;
 import cybersoft.javabackend.java11.gira.user.util.UserStatus;
 import cybersoft.javabackend.java11.gira.user.validation.annotation.UniqueUsername;
@@ -61,6 +64,12 @@ public class User extends AbstractEntity {
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<RoleGroup> roleGroups = new HashSet<>();
+	
+	@OneToMany (mappedBy = "owner", cascade = CascadeType.ALL) // để tên của trường bên @ManyToOne
+	private Set<Project> ownProjects = new HashSet<Project>();
+	
+	@OneToMany (mappedBy = "manager", cascade = CascadeType.ALL) // để tên của trường bên @ManyToOne
+	private Set<Project> managerProjects = new HashSet<Project>();
 
 	public User username(String username) {
 		this.username = username;

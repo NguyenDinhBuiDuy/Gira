@@ -19,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
 import cybersoft.javabackend.java11.gira.project.validation.annotation.UniqueCode;
 import cybersoft.javabackend.java11.gira.user.model.User;
 import cybersoft.javabackend.java11.gira.util.DateUtils;
@@ -29,29 +30,21 @@ import lombok.Setter;
 @Table (name = "gira_project")
 @Getter
 @Setter
-public class Project {
+public class Project extends AbstractEntity{
 	@NotBlank(message = "{project.name.notblank}")
 	@Size(min = 3, max = 50, message = "{project.name.size}")
 	@Column(unique = true)
 	private String name;
 	
-	@Id
-	@NotBlank
-	@UniqueCode
+	@NotBlank(message = "{project.code.notblank}")
+	@Size(min = 3, max = 50, message = "{project.code.size}")
+	//@UniqueCode // đảm bảo người dùng nhập vào giá trị không bị trùng
+	@Column (unique = true) // đảm bảo data base chỉ có duy nhất 1 giá trị 
 	private String code;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User owner;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User manager;
-	
-	@NotBlank
 	private String icon;
 	
-	@NotBlank
+	@NotBlank (message = "{project.description.notblank}")
 	private String description;
 	
 	@NotBlank
@@ -66,7 +59,19 @@ public class Project {
 	@Column(name = "end_date", updatable = false, nullable = false)
 	private LocalDateTime endDate;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_name")
+	private User owner;
+	
+	//bidirectional = quan hệ 2 chiều (nên sử dụng để tăng performance) ; unidirectional = quan hệ một chiều
+	//ManyToOne, OneToMany, OneToOne default type là eager : sẽ tự động load user
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_name") // đảm bảo username phải unique
+	private User manager;
+	
+	
+	
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "project_type_id")
 	ProjectType projectType;
 	
