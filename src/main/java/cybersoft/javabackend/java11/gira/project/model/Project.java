@@ -18,9 +18,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Optional;
 
 import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
-import cybersoft.javabackend.java11.gira.project.validation.annotation.UniqueCode;
+import cybersoft.javabackend.java11.gira.project.validation.annotation.UniqueProjectCode;
 import cybersoft.javabackend.java11.gira.user.model.User;
 import cybersoft.javabackend.java11.gira.util.DateUtils;
 import lombok.Getter;
@@ -38,7 +39,7 @@ public class Project extends AbstractEntity{
 	
 	@NotBlank(message = "{project.code.notblank}")
 	@Size(min = 3, max = 50, message = "{project.code.size}")
-	//@UniqueCode // đảm bảo người dùng nhập vào giá trị không bị trùng
+	//@UniqueProjectCode // đảm bảo người dùng nhập vào giá trị không bị trùng
 	@Column (unique = true) // đảm bảo data base chỉ có duy nhất 1 giá trị 
 	private String code;
 	
@@ -60,24 +61,48 @@ public class Project extends AbstractEntity{
 	private LocalDateTime endDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_name")
-	private User owner;
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private Optional<User> owner;
 	
 	//bidirectional = quan hệ 2 chiều (nên sử dụng để tăng performance) ; unidirectional = quan hệ một chiều
 	//ManyToOne, OneToMany, OneToOne default type là eager : sẽ tự động load user
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_name") // đảm bảo username phải unique
+	@JoinColumn(name = "user_id") // đảm bảo username phải unique
 	private User manager;
 	
 	
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "project_type_id")
+	@JsonIgnore
 	ProjectType projectType;
 	
-	@OneToMany (mappedBy = "workflows", fetch = FetchType.LAZY)
-	@JsonIgnore
+	@OneToMany (mappedBy = "project", fetch = FetchType.LAZY)
 	private Set<Workflow> workflows;
+
+	public Project name(String name2) {
+		this.name = name2;
+		return this;
+	}
+	public Project projectType(ProjectType projectType) {
+		this.projectType = projectType;
+		return this;
+	}
+	public Project code(String code) {
+		this.code = code;
+		return this;
+	}
+	public Project startDate(LocalDateTime startDate) {
+		this.startDate = startDate;
+		return this;
+	}
+	public Project endDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+		return this;
+	}
+
+	
+	
 	
 
 }

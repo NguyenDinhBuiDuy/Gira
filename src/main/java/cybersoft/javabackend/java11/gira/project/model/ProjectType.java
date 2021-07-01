@@ -1,5 +1,6 @@
 package cybersoft.javabackend.java11.gira.project.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,13 +17,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "gira_project_type")
 @Getter
 @Setter
-@ToString
 public class ProjectType extends AbstractEntity{
 	
 	@NotBlank(message = "{project-type.name.notblank}")
@@ -38,9 +37,9 @@ public class ProjectType extends AbstractEntity{
 	@NotBlank
 	private String description;
 	
-	@OneToMany (mappedBy = "project", cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "projectType", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Set<Project> projects;
+	private Set<Project> projects = new HashSet<Project>();
 	
 
 }

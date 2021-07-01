@@ -66,9 +66,11 @@ public class User extends AbstractEntity {
 	private Set<RoleGroup> roleGroups = new HashSet<>();
 	
 	@OneToMany (mappedBy = "owner", cascade = CascadeType.ALL) // để tên của trường bên @ManyToOne
+	@JsonIgnore
 	private Set<Project> ownProjects = new HashSet<Project>();
 	
 	@OneToMany (mappedBy = "manager", cascade = CascadeType.ALL) // để tên của trường bên @ManyToOne
+	@JsonIgnore
 	private Set<Project> managerProjects = new HashSet<Project>();
 
 	public User username(String username) {

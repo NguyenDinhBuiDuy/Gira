@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import cybersoft.javabackend.java11.gira.commondata.model.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Table (name = "gira_project_workflow_node")
 @Getter
 @Setter
-public class WorkflowNode {
+public class WorkflowNode extends AbstractEntity{
 	
 	@NotBlank(message = "{workflowNode.name.notblank}")
 	@Size(min = 3, max = 50, message = "{workflowNode.name.size}")
@@ -28,12 +29,11 @@ public class WorkflowNode {
 	private int nodeOrder;
 	
 	@ManyToOne
-	@JoinColumn (name = "workflow_code")
 	private Workflow workflow;
 	
 	@OneToMany (mappedBy = "destination", cascade =  CascadeType.ALL)
-	private Set<WorkflowNode> linkBy = new HashSet<>();
+	private Set<WorkflowLink> linkBy = new HashSet<>();
 	
 	@OneToMany (mappedBy = "source", cascade =  CascadeType.ALL)
-	private Set<WorkflowNode> linkTo = new HashSet<>();
+	private Set<WorkflowLink> linkTo = new HashSet<>();
 }
