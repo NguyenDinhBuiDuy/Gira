@@ -8,16 +8,17 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import cybersoft.javabackend.java11.gira.project.validation.validator.UniqueProjectCodeValidator;
+import cybersoft.javabackend.java11.gira.project.validation.validator.ExistProjectTypeValidator;
 
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueProjectCodeValidator.class)
-public @interface UniqueProjectCode {
-	public String message() default "Project code already used";
+@Target (ElementType.FIELD)
+@Retention (RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = ExistProjectTypeValidator.class )
+public @interface ExistProjectType {
 
+	public String message () default "the project type is not exist";
+	
 	public Class<?>[] groups() default {};
-
+	
 	public Class<? extends Payload>[] payload() default {};
-
+	
 }

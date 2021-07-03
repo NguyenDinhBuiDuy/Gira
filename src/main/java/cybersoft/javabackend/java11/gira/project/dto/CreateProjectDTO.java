@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import cybersoft.javabackend.java11.gira.project.validation.annotation.ExistUser;
 import cybersoft.javabackend.java11.gira.project.validation.annotation.UniqueProjectCode;
 import cybersoft.javabackend.java11.gira.util.DateUtils;
 import lombok.Getter;
@@ -40,9 +42,11 @@ public class CreateProjectDTO {
 	@DateTimeFormat (pattern = DateUtils.DATE_FORMAT)
 	private LocalDateTime endDate;
 	
+	@ExistUser (message = "owner name is not exist")
 	private String ownerName;
 	
-	private String userName;
+	@ExistUser (message = "manager name is not exist")
+	private String managerName;
 	
 	Long  projectTypeId;
 }

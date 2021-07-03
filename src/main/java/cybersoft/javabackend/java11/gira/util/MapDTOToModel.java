@@ -1,4 +1,4 @@
-package cybersoft.javabackend.java11.gira.commondata;
+package cybersoft.javabackend.java11.gira.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

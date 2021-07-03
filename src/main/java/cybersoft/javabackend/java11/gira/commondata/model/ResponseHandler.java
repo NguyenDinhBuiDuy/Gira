@@ -13,34 +13,37 @@ import cybersoft.javabackend.java11.gira.util.ListUtils;
 public class ResponseHandler {
 	public static ResponseEntity<Object> getResponse(Object content, HttpStatus status){
 		Map<String,Object> map = new HashMap<>();
-		
 		map.put("content", content);
 		map.put("message", ListUtils.emtyString);
 		map.put("status", status.value());
+		
 		return new ResponseEntity<>(map,status);
 	}
+	
 	public static ResponseEntity<Object> getResponse(BindingResult bidingResult, HttpStatus status){
 		Map<String,Object> map = new HashMap<>();
-		
 		map.put("content", ListUtils.emtyString);
 		map.put("message", ErrorUtils.getErrorMessages(bidingResult));
 		map.put("status", status.value());
+		
 		return new ResponseEntity<>(map,status);
 	}
+	
 	public static ResponseEntity<Object> getResponse(String error, HttpStatus status){
 		Map<String,Object> map = new HashMap<>();
-		
 		map.put("content", ListUtils.emtyString);
 		map.put("message", ErrorUtils.errorOf(error));
 		map.put("status", status.value());
+		
 		return new ResponseEntity<>(map,status);
 	}
+	
 	public static ResponseEntity<Object> getResponse(HttpStatus status){
 		Map<String,Object> map = new HashMap<>();
-		
 		map.put("content", ListUtils.emtyString);
 		map.put("message", ListUtils.emtyString);
 		map.put("status", status.value());
+		
 		return new ResponseEntity<>(map,status);
 	}
 

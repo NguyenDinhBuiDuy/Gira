@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import cybersoft.javabackend.java11.gira.project.validation.annotation.ExistUser;
 import cybersoft.javabackend.java11.gira.project.validation.annotation.UniqueProjectCode;
 import cybersoft.javabackend.java11.gira.util.DateUtils;
 
@@ -32,9 +33,11 @@ public class UpdateProjectDTO {
 	
 	private LocalDateTime endDate;
 	
+	@ExistUser (message = "the owner is not exits")
 	private String ownerName;
 	
-	private String userName;
+	@ExistUser (message = "the manager is not exits")
+	private String managerName;
 	
 	Long  projectTypeId;
 }

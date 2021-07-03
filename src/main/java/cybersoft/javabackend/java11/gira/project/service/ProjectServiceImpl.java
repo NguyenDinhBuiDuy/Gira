@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.base.Optional;
 
 import cybersoft.javabackend.java11.gira.commondata.GenericServiceImpl;
-import cybersoft.javabackend.java11.gira.commondata.MapDTOToModel;
+import cybersoft.javabackend.java11.gira.util.MapDTOToModel;
 import cybersoft.javabackend.java11.gira.project.dto.CreateProjectDTO;
 import cybersoft.javabackend.java11.gira.project.dto.UpdateProjectDTO;
 import cybersoft.javabackend.java11.gira.project.model.Project;
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class ProjectServiceImpl extends GenericServiceImpl<Project, Long> implements ProjectService{
 
-	private ProjectRepository _repository;
+	private ProjectRepository _projectRepository;
 
 	private ProjectTypeRepository _projectTypeRepository;
 	
@@ -30,11 +30,6 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Long> implem
 	
 	private UserRepository _userRepository;
 	
-	@Override
-	public boolean isTakenProjectCode(String projectCode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public Project save(@Valid CreateProjectDTO dto) {
@@ -46,20 +41,33 @@ public class ProjectServiceImpl extends GenericServiceImpl<Project, Long> implem
 		
 		Optional<User> owner =  _userRepository.findByUsername(dto.getOwnerName());
 		
-		if (owner!= null)
-			model.setOwner(owner);;
+		if (owner.isPresent())
+			model.setOwner(owner.get());;
 		
 		model.setProjectType(type);
 		
-		return _repository.save(model);
+		return _projectRepository.save(model);
 	}
 
 	@Override
 	public Project updateProjectInfo(@Valid UpdateProjectDTO dto, Long id) {
-		Project project = _repository.getOne(id);
-			
-			return _repository.save(project);
+		Project project = _projectRepository.getOne(id);
+		
+			return _projectRepository.save(project);
 
 	}
+	@Override
+	public boolean isTakenProjectCode(String projectCode) {
+		
+		return _projectRepository.countByCode(projectCode) >= 1 ;
+	}
+
+	@Override
+	public boolean isTakenProjectName(String projectName) {
+		
+		return _projectRepository.countByName(projectName) >=1;
+	}
+
+
 
 }

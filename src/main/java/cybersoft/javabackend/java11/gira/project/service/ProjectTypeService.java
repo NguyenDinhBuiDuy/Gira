@@ -5,4 +5,6 @@ import cybersoft.javabackend.java11.gira.project.model.ProjectType;
 
 public interface ProjectTypeService extends GenericService<ProjectType, Long>{
 
+	boolean isTakenProjectType(Long id);
+
 }

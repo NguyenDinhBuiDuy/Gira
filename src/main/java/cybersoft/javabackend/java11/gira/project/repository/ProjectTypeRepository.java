@@ -8,4 +8,6 @@ import cybersoft.javabackend.java11.gira.project.model.ProjectType;
 @Repository
 public interface ProjectTypeRepository extends JpaRepository<ProjectType, Long>{
 
+	int countById(Long id);
+
 }

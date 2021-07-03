@@ -9,10 +9,12 @@ import cybersoft.javabackend.java11.gira.project.model.Project;
 
 public interface ProjectService extends GenericService<Project, Long>{
 
-	boolean isTakenProjectCode(String projectCode);
-
 	Project save(@Valid CreateProjectDTO dto);
 
 	Project updateProjectInfo(@Valid UpdateProjectDTO dto, Long id);
+
+	boolean isTakenProjectCode(String projectCode);
+	
+	boolean isTakenProjectName(String projectName);
 
 }

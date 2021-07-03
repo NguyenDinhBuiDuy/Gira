@@ -48,21 +48,17 @@ public class Project extends AbstractEntity{
 	@NotBlank (message = "{project.description.notblank}")
 	private String description;
 	
-	@NotBlank
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)// giup json hieu nen in format date nhu da quy dinh truoc
 	@DateTimeFormat (pattern = DateUtils.DATE_FORMAT)
-	@Column(name = "start_date", updatable = false, nullable = false)
 	private LocalDateTime startDate;
 	
-	@NotBlank
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtils.DATE_FORMAT)// giup json hieu nen in format date nhu da quy dinh truoc
 	@DateTimeFormat (pattern = DateUtils.DATE_FORMAT)
-	@Column(name = "end_date", updatable = false, nullable = false)
 	private LocalDateTime endDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private Optional<User> owner;
+	private User owner;
 	
 	//bidirectional = quan hệ 2 chiều (nên sử dụng để tăng performance) ; unidirectional = quan hệ một chiều
 	//ManyToOne, OneToMany, OneToOne default type là eager : sẽ tự động load user

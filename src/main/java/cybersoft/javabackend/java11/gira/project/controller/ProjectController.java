@@ -42,7 +42,7 @@ public class ProjectController {
 	@PostMapping ("")
 	public ResponseEntity<Object> createNewProject (@Valid @RequestBody CreateProjectDTO dto, BindingResult bindingResult){
 		if (bindingResult.hasErrors())
-			return ResponseHandler.getResponse(HttpStatus.BAD_REQUEST);
+			return ResponseHandler.getResponse(bindingResult, HttpStatus.BAD_REQUEST);
 		Project project = _service.save(dto);
 		return ResponseHandler.getResponse(project, HttpStatus.OK);		
 	}

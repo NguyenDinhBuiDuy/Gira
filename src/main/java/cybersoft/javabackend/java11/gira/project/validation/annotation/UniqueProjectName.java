@@ -8,13 +8,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import cybersoft.javabackend.java11.gira.project.validation.validator.UniqueProjectCodeValidator;
+import cybersoft.javabackend.java11.gira.project.validation.validator.UniqueProjectNameValidator;
 
-@Target(ElementType.FIELD)
+@Target (ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueProjectCodeValidator.class)
-public @interface UniqueProjectCode {
-	public String message() default "Project code already used";
+@Constraint(validatedBy = UniqueProjectNameValidator.class)
+public @interface UniqueProjectName {
+	public String message() default "Project name already used";
 
 	public Class<?>[] groups() default {};
 
